@@ -18,7 +18,7 @@ jobs:
       matrix:
         language: [javascript]  # or add 'python', 'csharp', etc. as needed
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
