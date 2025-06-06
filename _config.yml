@@ -3,26 +3,26 @@ subtitle: "DevOps Expert"
 name: "Wahba Mousa"
 description: "Certified Senior DevOps Expert — Azure, AWS, GitHub, Jenkins, Kubernetes, Terraform, Prometheus"
 locale: "EG"
-url: ${{ ENV_BASE_URL }}
+url: ${{ env.ENV_BASE_URL }}
 baseurl: "" # root domain
 repository: "WahbaMousa-DevOps/WahbaMousa-DevOps.github.io"
 minimal_mistakes_skin: "default"
 remote_theme: mmistakes/minimal-mistakes
 
 
-logo: "/assets/images/logo.jpg"
-masthead_title: "AIOps Vision"
-words_per_minute: 200
-paginate: 5
-permalink: /:categories/:title/
-timezone: "Africa/Cairo"
+# logo: "/assets/images/logo.jpg"
+# masthead_title: "AIOps Vision"
+# words_per_minute: 200
+# paginate: 5
+# permalink: /:categories/:title/
+# timezone: "Africa/Cairo"
 
 author:
   name: "Wahba Mousa"
   avatar: "/assets/images/wahba.jpg"
   bio: "Senior DevOps Engineer — Certified AZ-400, Terraform, GitHub Advanced Security"
   location: "Cairo, Egypt"
-  email: "engineerwahba@gmail.com"
+  # email: "engineerwahba@gmail.com"
   links:
     - label: "GitHub"
       icon: "fab fa-github"
@@ -30,27 +30,27 @@ author:
     - label: "LinkedIn"
       icon: "fab fa-linkedin"
       url: "https://www.linkedin.com/in/wahbamousa/"
-    - label: "Email"
-      icon: "fas fa-envelope"
-      url: "mailto:engineerwahba@gmail.com"
-    - label: "Website"
-      icon: "fas fa-globe"
-      url: ${{ ENV_BASE_URL }}
+#     - label: "Email"
+#       icon: "fas fa-envelope"
+#       url: "mailto:engineerwahba@gmail.com"
+#     - label: "Website"
+#       icon: "fas fa-globe"
+#       url: ${{ env.ENV_BASE_URL }}
 
-footer:
-  links:
-    - label: "GitHub"
-      icon: "fab fa-github"
-      url: "https://github.com/WahbaMousa-DevOps"
-    - label: "LinkedIn"
-      icon: "fab fa-linkedin"
-      url: "https://www.linkedin.com/in/wahbamousa/"
-    - label: "Email"
-      icon: "fas fa-envelope"
-      url: "mailto:engineerwahba@gmail.com"
+# footer:
+#   links:
+#     - label: "GitHub"
+#       icon: "fab fa-github"
+#       url: "https://github.com/WahbaMousa-DevOps"
+#     - label: "LinkedIn"
+#       icon: "fab fa-linkedin"
+#       url: "https://www.linkedin.com/in/wahbamousa/"
+#     - label: "Email"
+#       icon: "fas fa-envelope"
+#       url: "mailto:engineerwahba@gmail.com"
 
 plugins:
-  - jekyll-feed
+  # - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap

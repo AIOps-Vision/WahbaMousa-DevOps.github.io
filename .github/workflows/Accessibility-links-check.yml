@@ -2,11 +2,11 @@ name: Lint and Link Check
 
 on:
   workflow_call:
-  push:
-    paths:
-      - '**.md'
-      - .markdownlint.yml
-      - .linkspector.yml
+  # push:
+  #   paths:
+  #     - '**.md'
+  #     - .markdownlint.yml
+  #     - .linkspector.yml
 
 jobs:
   md-link:
@@ -23,13 +23,9 @@ jobs:
         files: "."
         config_file: ".markdownlint.yml"
 
-    - name: Install Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-
-    - name: Install linkspector
-      run: npm install -g @umbrelladocs/action-linkspector
 
     - name: Run linkspector
-      run: linkspector --config .linkspector.yml
+      uses: UmbrellaDocs/action-linkspector@v1
+      with:
+        config: .linkspector.yml
+

@@ -1,0 +1,16 @@
+name: Lighthouse Performance and SEO Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Every Monday
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: ${{ env.ENV_BASE_URL }}
+          uploadArtifacts: true
