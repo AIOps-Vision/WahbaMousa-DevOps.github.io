@@ -6,7 +6,8 @@ dirs:
   - .
   - .github
 excludedDirs:
-  - 
+  - assets/
+  # - _includes/
 ignorePatterns:
   - pattern: "^https://github.com/microsoft/mcr.*$"
   - pattern: "^https://github.com/dotnet/release.*$"

@@ -1,20 +1,18 @@
-name: "🐞 Bug Report"
+name: "Bug Report"
 description: Submit a structured bug report for this project.
 labels: [bug]
 body:
   - type: markdown
     attributes:
       value: |
-        ### 🧠 Before You Submit
+        ### Before You Submit
 
         Please make sure you've done the following:
 
-        - ✅ Verified you're using the latest version of this site and theme.
-        - 📘 Checked the site documentation: https://aiopsvision.com/docs
-        - 🔍 Searched existing issues: https://github.com/aiopsvision/aiopsvision.github.io/issues
-        - 📦 This site uses the [Minimal Mistakes theme](https://mmistakes.github.io/minimal-mistakes/docs/) —  
-          if the bug appears theme-related (layout, style, rendering), check their docs/issues too:  
-          https://github.com/mmistakes/minimal-mistakes/issues
+        - Verify you're using the latest version of this site and theme.
+        - Check the site documentation: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io#readme
+        - Search existing issues: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/issues
+        - This site uses the Minimal Mistakes theme, check docs/issues: https://github.com/mmistakes/minimal-mistakes/issues
 
   - type: input
     id: bug-title

@@ -1,0 +1,3 @@
+# Auto-label every new unlabeled issue as "untriaged"
+untriaged:
+  - '/.*/'

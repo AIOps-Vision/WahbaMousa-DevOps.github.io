@@ -2,16 +2,18 @@
 name: Deploy to Staging
 on:
   # workflow_run:
-  #   workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
+  #   workflows: ["CI Pipeline"]
   #   types:
   #     - completed
   workflow_dispatch: {}  
   push:
     branches:
       - release
- 
+  pull_request:
+    branches:
+      - release
 concurrency:
-  group: "prod-deploy-${{ github.ref }}"
+  group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false
 
 permissions:
@@ -20,11 +22,11 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy: # change name with aggregator using in workflow
+  build-deploy-staging:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://staging.aiopsvision.com # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,9 +38,6 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-gems-
 
-      - name: Add Production CNAME
-        run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
@@ -47,6 +46,10 @@ jobs:
         with:
           source: ./
           destination: ./_site
+
+      # - name: Set CNAME from ENV
+      #   run: echo "${{ env.ENV_BASE_URL }}" | sudo tee _site/CNAME
+
 
       # - name: Download Jekyll Artifact  # add this with workflow aggregator using
       #   uses: actions/download-artifact@v4 # v4 as public download

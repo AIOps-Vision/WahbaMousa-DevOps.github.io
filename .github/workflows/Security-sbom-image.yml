@@ -1,0 +1,69 @@
+# ⚠️ NOTE: This file is a reference template for Docker-based apps.
+# It is not used by this GitHub Pages (Jekyll) project, which has no Dockerfile.
+# Keep for future use with containerized microservices.
+
+name: Build, SBOM, and Sign
+
+on:
+  workflow_dispatch: {}  
+  # push:
+  #   branches: [main]
+
+jobs:
+
+  build-and-sign:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t ghcr.io/myorg/myapp:latest .
+
+    - name: Install Syft
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+    - name: Generate SBOM
+      run: syft ghcr.io/myorg/myapp:latest -o spdx-json > sbom.spdx.json
+
+    - name: Run Trivy on Docker Image
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: image
+        image-ref: ghcr.io/myorg/myapp:latest
+        severity: CRITICAL,HIGH
+        ignore-unfixed: true
+        format: table
+        output: trivy-image-results.txt
+
+    - name: Upload Trivy Image Scan Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: trivy-image-scan
+        path: trivy-image-results.txt
+
+    - name: Install Cosign
+      run: |
+        curl -sSfL https://raw.githubusercontent.com/sigstore/cosign/main/install.sh | sh -s -- -b /usr/local/bin
+
+    - name: Login to GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+
+    - name: Push Docker image
+      run: docker push ghcr.io/myorg/myapp:latest
+
+    - name: Sign Docker image
+      env:
+        COSIGN_EXPERIMENTAL: "1"
+        COSIGN_KEY: ${{ secrets.COSIGN_KEY }}
+      run: |
+        echo "${{ secrets.COSIGN_PASSWORD }}" | cosign sign --key env://COSIGN_KEY ghcr.io/myorg/myapp:latest
+
+    - name: Optional - Upload SBOM
+      uses: actions/upload-artifact@v4
+      with:
+        name: sbom
+        path: sbom.spdx.json

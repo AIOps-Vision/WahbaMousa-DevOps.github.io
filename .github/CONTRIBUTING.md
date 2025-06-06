@@ -6,12 +6,12 @@ If you’ve found a typo, a bug, or have a suggestion, feel free to [open an iss
 
 ## Contribution Guidelines
 
-- ✅ **Fork the repository.**
-- ✅ **Clone your fork locally.**
-- ✅ Create a new branch with a meaningful name (e.g., `fix-doc-typo`, `add-ci-step`, or `improve-performance-logging`).
-- ✅ Make your changes in that branch.
-- ✅ Ensure your code follows our existing style and passes all checks (CI, lint, security scans if any).
-- ✅ Open a pull request (PR) to the `main` branch with a clear description of the change.
+- **Fork the repository.**
+- **Clone your fork locally.**
+- Create a new branch with a meaningful name (e.g., `fix-doc-typo`, `add-ci-step`, or `improve-performance-logging`).
+- Make your changes in that branch.
+- Ensure your code follows our existing style and passes all checks (CI, lint, security scans if any).
+- Open a pull request (PR) to the `main` branch with a clear description of the change.
 
 ## Pull Request Requirements
 
@@ -26,11 +26,11 @@ Before submitting a PR, please:
 
 This repository is intended to serve as a clean, professional base for real-world DevOps practices and documentation. When suggesting new features, please consider:
 
-- 🔒 Security
-- ⚙️ Automation
-- 📦 Reusability
-- 📊 Observability
-- ✅ Clarity and maintainability
+- Security
+- Automation
+- Reusability
+- Observability
+- Clarity and maintainability
 
 We may not accept contributions that are highly niche, overly complex, or out of scope for this project’s goals.
 
