@@ -26,9 +26,9 @@ jobs:
       - name: Set GH_TOKEN dynamically
         run: |
          if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
-            GH_TOKEN=${{ variables.GH_TOKEN_ORG }}
+            GH_TOKEN=${{ GITHUB_ENV }}
           else
-            GH_TOKEN=${{ variables.GH_TOKEN_FORK }}
+           GH_TOKEN=${{ GITHUB_ENV }}
           fi
 
       - name: Install GitHub CLI and PyYAML
