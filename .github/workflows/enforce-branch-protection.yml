@@ -26,9 +26,9 @@ jobs:
       - name: Set GH_TOKEN dynamically
         run: |
          if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ vars.GH_TOKEN_ORG }}" >> $GITHUB_ENV
           else
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ vars.GH_TOKEN_FORK }}" >> $GITHUB_ENV
           fi
 
       - name: Install GitHub CLI and PyYAML
@@ -39,5 +39,5 @@ jobs:
 
       - name: Apply Branch Protection from YAML
         env:
-          GH_TOKEN: ${{ GITHUB_ENV }}
+          GH_TOKEN: ${{ env.GH_TOKEN }}
         run: python .github/scripts/parse-and-apply.py
