@@ -19,7 +19,7 @@ branches:
         bypass_pull_request_allowances: 
           users:
             - WahbaMousa-DevOps
-      enforce_admins: false
+      enforce_admins: false # change to true in real public
       restrictions:
         users:
           - WahbaMousa-DevOps  
@@ -32,5 +32,5 @@ branches:
       require_linear_history: false
       required_conversation_resolution: true  
 
-      lock_branch: true # make it false to require review 
+      lock_branch: true # make it false to require review public
       block_recreations: false
