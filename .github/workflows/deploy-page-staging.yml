@@ -36,8 +36,8 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-gems-
 
-      - name: Add Production CNAME
-        run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
+      # - name: Add Production CNAME
+      #   run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
