@@ -13,13 +13,13 @@ branches:
           - "CI Pipeline / call-scan"
         
       required_pull_request_reviews:
-        required_approving_review_count: 0
+        required_approving_review_count: 1
         dismiss_stale_reviews: true 
         require_code_owner_reviews: true 
         bypass_pull_request_allowances: 
           users:
             - WahbaMousa-DevOps
-      enforce_admins: true
+      enforce_admins: false
       restrictions:
         users:
           - WahbaMousa-DevOps  
