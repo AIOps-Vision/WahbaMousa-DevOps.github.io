@@ -19,7 +19,7 @@ branches:
         bypass_pull_request_allowances: 
           users:
             - WahbaMousa-DevOps
-      enforce_admins: false
+      enforce_admins: true
       restrictions:
         users:
           - WahbaMousa-DevOps  
@@ -32,5 +32,5 @@ branches:
       require_linear_history: false
       required_conversation_resolution: true  
 
-      lock_branch: false 
+      lock_branch: true 
       block_recreations: false
