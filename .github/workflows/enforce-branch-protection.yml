@@ -10,9 +10,7 @@ on:
 
 permissions:
   contents: write  
-  actions: write
-  pull-requests: write
-  statuses: write
+  actions: read
 
 jobs:
   enforce:
@@ -25,9 +23,11 @@ jobs:
 
       - name: Set GH_TOKEN dynamically
         run: |
-         if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+          if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+            echo "Using GH_TOKEN_ORG"
             echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
           else
+            echo "Using GH_TOKEN_FORK"
             echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
           fi
 
@@ -37,7 +37,16 @@ jobs:
           sudo apt-get install -y gh python3-pip
           pip install pyyaml
 
+      - name: Debug GH_TOKEN
+        run: |
+          echo "Repository owner: ${{ github.repository_owner }}"
+          echo "GH_TOKEN set: $([[ -n "$GH_TOKEN" ]] && echo "YES" || echo "NO")"
+          echo "GH_TOKEN starts with: ${GH_TOKEN:0:4}..."
+          gh auth status || echo "GH auth failed"
+        env:
+          GH_TOKEN: ${{ env.GH_TOKEN }}
+
       - name: Apply Branch Protection from YAML
         env:
-          GH_TOKEN: ${{ vars.GH_TOKEN }}
+          GH_TOKEN: ${{ env.GH_TOKEN }}
         run: python .github/scripts/parse-and-apply.py
