@@ -23,13 +23,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set GH_TOKEN dynamically
-        run: |
-         if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
-          else
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
-          fi
+      # - name: Set GH_TOKEN dynamically
+      #   run: |
+      #    if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+      #       echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
+      #     else
+      #       echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
+      #     fi
 
       - name: Install GitHub CLI and PyYAML
         run: |
@@ -39,5 +39,5 @@ jobs:
 
       - name: Apply Branch Protection from YAML
         env:
-          GH_TOKEN: ${{ env.GH_TOKEN }}
+          GH_TOKEN: ${{ env.GH_TOKEN_FORK }}
         run: python .github/scripts/parse-and-apply.py
