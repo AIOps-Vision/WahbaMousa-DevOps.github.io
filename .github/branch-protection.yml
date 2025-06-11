@@ -19,7 +19,7 @@ branches:
         bypass_pull_request_allowances: 
           users:
             - WahbaMousa-DevOps
-      enforce_admins: true
+      enforce_admins: false
       restrictions:
         users:
           - WahbaMousa-DevOps  
