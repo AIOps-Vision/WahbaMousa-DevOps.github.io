@@ -1,0 +1,39 @@
+title = "Gitleaks Configuration – Production Grade"
+
+[allowlist]
+# Ignore non-code folders and safe files that don't store secrets
+paths = [
+  "README.md",
+  "LICENSE",
+  "CONTRIBUTING.md",
+  "PULL_REQUEST_TEMPLATE.md",
+  "SECURITY.md",
+  ".travis.yml",
+  "docs/",
+  "assets/",
+  "test/",
+  "_layouts/",
+  "_includes/",
+  "_sass/",
+  "_pages/",
+  "_data/",
+  "minimal-mistakes-jekyll.gemspec",
+  ".github/ISSUE_TEMPLATE/",
+  ".github/scripts/parse-and-apply.py"
+]
+
+# Ignore known false positives by regex
+regexes = [
+  '''dummy[_-]?api[_-]?key''',
+  '''example[_-]?secret''',
+  '''test[_-]?token''',
+  '''not[_-]?a[_-]?real[_-]?key'''
+]
+
+# Ignore specific commits (add hashes if needed)
+commits = []
+
+[[rules]]
+description = "Generic API Key"
+regex = '''(?i)(api|apikey|secret|token|key)[\s:=]{1,3}["']?[a-z0-9\-_=]{16,}["']?'''
+tags = ["key", "API", "custom"]

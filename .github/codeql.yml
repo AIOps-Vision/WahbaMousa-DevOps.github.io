@@ -1,0 +1,17 @@
+name: "CodeQL config for GitHub Pages" # Workflow runner
+
+queries:
+  - uses: security-and-quality
+
+paths:
+  - _includes
+  - _layouts
+  - _posts
+  - assets
+  - _config.yml
+
+paths-ignore:
+  - node_modules
+  - vendor
+  - dist
+  - .jekyll-cache

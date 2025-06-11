@@ -10,4 +10,4 @@ We take all security issues seriously and will respond promptly to fix the issue
 
 ---
 
-✅ Do not disclose vulnerabilities publicly until a fix is released.
+Do not disclose vulnerabilities publicly until a fix is released.

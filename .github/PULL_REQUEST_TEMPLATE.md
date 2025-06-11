@@ -7,10 +7,10 @@ Describe the changes made and the motivation behind them.
 (Optional) Link to related issues or discussion threads.
 
 ## 🔍 Type of Change
-- [ ] Bug fix 🐛
-- [ ] New feature 🚀
-- [ ] Documentation 📝
-- [ ] Refactor / Code Cleanup ♻️
+- [ ] Bug fix 
+- [ ] New feature 
+- [ ] Documentation 
+- [ ] Refactor / Code Cleanup 
 - [ ] Other (please describe):
 
 ## ✅ Checklist

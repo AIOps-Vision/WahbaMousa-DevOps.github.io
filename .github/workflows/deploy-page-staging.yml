@@ -1,9 +1,10 @@
 
 name: Deploy to Staging
 on:
-  # pull_request:
-  #   branches:
-  #     - release
+  # workflow_run:
+  #   workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
+  #   types:
+  #     - completed
   workflow_dispatch: {}  
   push:
     branches:
@@ -14,20 +15,21 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build-and-deploy: # change name with aggregator using in workflow
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://staging.aiopsvision.com
+      url: https://staging.aiopsvision.com # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache Jekyll gems
+      - name: Cache Jekyll gems # caches Ruby gem dependencies (in vendor/bundle) based on the Gemfile.lock hash to speed up future Jekyll builds.
         uses: actions/cache@v4
         with:
           path: vendor/bundle
@@ -35,19 +37,27 @@ jobs:
           restore-keys: ${{ runner.os }}-gems-
 
       - name: Add Production CNAME
-        run: echo "staging.aiopsvision.com" > ./CNAME
+        run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll
+      - name: Build with Jekyll  # remove if will use workflow aggregator
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
 
+      # - name: Download Jekyll Artifact  # add this with workflow aggregator using
+      #   uses: actions/download-artifact@v4 # v4 as public download
+      #   with:
+      #     name: jekyll-site    # MUST match name in build.yml
+      #     path: ./_site
+
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # v3 as specific use not generic and needed for deploy v4 in next step
+        # with:    # needed if above comment # removed and download activated
+        #   path: ./_site
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

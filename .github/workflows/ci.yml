@@ -1,15 +1,17 @@
 name: CI Pipeline
 
-on:
+on: # Jobs run in parallel by default unless you define needs: to specify order.
   push:
-    branches: [develop, 'feature/*', 'hotfix/*']
-
+    branches: [main, release, develop, 'feature/*', 'hotfix/*']
 jobs:
   call-tests:
     uses: ./.github/workflows/test.yml
 
   call-lint:
     uses: ./.github/workflows/lint.yml
+
+  call-md-link:
+    uses: ./.github/workflows/md-links-check.yml
 
   call-trivy:
     uses: ./.github/workflows/trivy.yml
@@ -20,7 +22,11 @@ jobs:
   call-codeql:
     uses: ./.github/workflows/codeql.yml
 
+  call-scan:
+    uses: ./.github/workflows/scan.yml
+    
   call-build:
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build.yml # add full build here instead of separate file if need to use its package in deploy directly in deploy from branch but if deploy from actions keep it as Actions support multi wrokflow deploy.
+
 
 
