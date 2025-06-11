@@ -15,6 +15,7 @@ permissions:
 jobs:
   enforce:
     name: Enforce Branch Protection
+    environment: production
     runs-on: ubuntu-latest
 
     steps:
@@ -25,30 +26,30 @@ jobs:
         run: |
           if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
             echo "Using GH_TOKEN_ORG"
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ vars.GH_TOKEN_ORG }}" >> $GITHUB_ENV
           else
             echo "Using GH_TOKEN_FORK"
-            echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ vars.GH_TOKEN_FORK }}" >> $GITHUB_ENV
           fi
 
-      - name: Set GH_TOKEN 
-        run: |
-          echo "Repository owner: ${{ github.repository_owner }}"
-          if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
-            echo "Branch: Using GH_TOKEN_ORG"
-            TOKEN_VALUE="${{ secrets.GH_TOKEN_ORG }}"
-          else
-            echo "Branch: Using GH_TOKEN_FORK for ${{ github.repository_owner }}"
-            TOKEN_VALUE="${{ secrets.GH_TOKEN_FORK }}"
-          fi
+      # - name: Set GH_TOKEN 
+      #   run: |
+      #     echo "Repository owner: ${{ github.repository_owner }}"
+      #     if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+      #       echo "Branch: Using GH_TOKEN_ORG"
+      #       TOKEN_VALUE="${{ secrets.GH_TOKEN_ORG }}"
+      #     else
+      #       echo "Branch: Using GH_TOKEN_FORK for ${{ github.repository_owner }}"
+      #       TOKEN_VALUE="${{ secrets.GH_TOKEN_FORK }}"
+      #     fi
           
-          if [[ -z "$TOKEN_VALUE" ]]; then
-            echo "❌ ERROR: Token is empty!"
-            exit 1
-          else
-            echo "✅ Token is set (length: ${#TOKEN_VALUE})"
-            echo "GH_TOKEN=$TOKEN_VALUE" >> $GITHUB_ENV
-          fi
+      #     if [[ -z "$TOKEN_VALUE" ]]; then
+      #       echo "❌ ERROR: Token is empty!"
+      #       exit 1
+      #     else
+      #       echo "✅ Token is set (length: ${#TOKEN_VALUE})"
+      #       echo "GH_TOKEN=$TOKEN_VALUE" >> $GITHUB_ENV
+      #     fi
 
       - name: Install GitHub CLI and PyYAML
         run: |
@@ -56,14 +57,14 @@ jobs:
           sudo apt-get install -y gh python3-pip
           pip install pyyaml
 
-      - name: Debug GH_TOKEN
-        run: |
-          echo "Repository owner: ${{ github.repository_owner }}"
-          echo "GH_TOKEN set: $([[ -n "$GH_TOKEN" ]] && echo "YES" || echo "NO")"
-          echo "GH_TOKEN starts with: ${GH_TOKEN:0:4}..."
-          gh auth status || echo "GH auth failed"
-        env:
-          GH_TOKEN: ${{ env.GH_TOKEN }}
+      # - name: Debug GH_TOKEN
+      #   run: |
+      #     echo "Repository owner: ${{ github.repository_owner }}"
+      #     echo "GH_TOKEN set: $([[ -n "$GH_TOKEN" ]] && echo "YES" || echo "NO")"
+      #     echo "GH_TOKEN starts with: ${GH_TOKEN:0:4}..."
+      #     gh auth status || echo "GH auth failed"
+      #   env:
+      #     GH_TOKEN: ${{ env.GH_TOKEN }}
 
       - name: Apply Branch Protection from YAML
         env:
