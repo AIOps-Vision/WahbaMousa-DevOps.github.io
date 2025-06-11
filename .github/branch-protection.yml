@@ -15,18 +15,18 @@ branches:
       required_pull_request_reviews:
         required_approving_review_count: 1 
         dismiss_stale_reviews: true 
-        require_code_owner_reviews: true 
+        require_code_owner_reviews: false 
         bypass_pull_request_allowances: 
           users:
             - WahbaMousa-DevOps
-      enforce_admins: false
+      enforce_admins: true
       restrictions:
         users:
           - WahbaMousa-DevOps  
          # - github-actions[bot]
         teams: []
         apps: []
-      allow_force_pushes: true 
+      allow_force_pushes: false 
       allow_deletions: false   
 
       require_linear_history: false
