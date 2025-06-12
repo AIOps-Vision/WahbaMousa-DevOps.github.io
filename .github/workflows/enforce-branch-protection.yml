@@ -41,3 +41,4 @@ jobs:
         env:
           GH_TOKEN: ${{ env.GH_TOKEN }}
         run: python .github/scripts/parse-and-apply.py
+
