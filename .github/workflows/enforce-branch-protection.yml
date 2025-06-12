@@ -15,7 +15,6 @@ permissions:
 jobs:
   enforce:
     name: Enforce Branch Protection
-    environment: production
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +25,10 @@ jobs:
         run: |
           if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
             echo "Using GH_TOKEN_ORG"
-            echo "GH_TOKEN=${{ vars.GH_TOKEN_ORG }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
           else
             echo "Using GH_TOKEN_FORK"
-            echo "GH_TOKEN=${{ vars.GH_TOKEN_FORK }}" >> $GITHUB_ENV
+            echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
           fi
 
       # - name: Set GH_TOKEN 
@@ -68,5 +67,5 @@ jobs:
 
       - name: Apply Branch Protection from YAML
         env:
-          GH_TOKEN: ${{ env.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: python .github/scripts/parse-and-apply.py
