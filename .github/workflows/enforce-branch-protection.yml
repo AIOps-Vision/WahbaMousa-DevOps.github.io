@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   enforce:
+    if: github.repository == 'WahbaMousa-DevOps/WahbaMousa-DevOps.github.io' # Until upgrade my Org i will remove this to wrok on org also
     name: Enforce Branch Protection
     runs-on: ubuntu-latest
 

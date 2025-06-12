@@ -10,12 +10,12 @@ minimal_mistakes_skin: "default"
 remote_theme: mmistakes/minimal-mistakes
 
 
-logo: "/assets/images/logo.jpg"
-masthead_title: "AIOps Vision"
-words_per_minute: 200
-paginate: 5
-permalink: /:categories/:title/
-timezone: "Africa/Cairo"
+# logo: "/assets/images/logo.jpg"
+# masthead_title: "AIOps Vision"
+# words_per_minute: 200
+# paginate: 5
+# permalink: /:categories/:title/
+# timezone: "Africa/Cairo"
 
 author:
   name: "Wahba Mousa"
