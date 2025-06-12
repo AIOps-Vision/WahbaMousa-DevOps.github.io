@@ -1,22 +1,22 @@
-# AIOps Vision – DevOps Portfolio Website
+# Wahba Mousa – DevOps Portfolio Website
 
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?style=flat-square) ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
-
-🌐 **Live Site**: [aiopsvision.github.io](https://aiops-vision.github.io/WahbaMousa-DevOps.github.io/)
-👤 **Created by**: Wahba Mousa – Senior DevOps Engineer
-🛠️ **Built With**: [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes)
-
-# AI Ops Vision - Enterprise DevOps Portfolio
-
-[![Deploy to Staging](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Staging/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-staging.yml)
-[![Deploy to Production](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Production/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-production.yml)
-[![CI Pipeline](https://github.com/your-username/your-repo/workflows/CI%20Pipeline/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/ci.yml)
 [![Security Rating](https://img.shields.io/badge/security-A+-green.svg)](https://github.com/your-username/your-repo/security)
 [![SBOM](https://img.shields.io/badge/SBOM-compliant-blue.svg)](https://github.com/your-username/your-repo/security/supply-chain)
+
+👤 **Created by**: Wahba Mousa – Senior DevOps Engineer
+
+🛠️ **Built With**: [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes)
+
+<!-- [![Deploy to Staging](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Staging/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-staging.yml)
+[![Deploy to Production](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Production/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-production.yml)
+[![CI Pipeline](https://github.com/your-username/your-repo/workflows/CI%20Pipeline/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/ci.yml) -->
 
 ## 🏗️ Architecture Overview
 
 This repository demonstrates **enterprise-grade DevSecOps practices** with a comprehensive CI/CD pipeline, security-first approach, and multi-environment deployment strategy.
+
+![See More](./assets/images/Architecture.png)
 
 ### 🌐 Live Environments
 - **Production**: [https://wahba.aiopsvision.com](https://wahba.aiopsvision.com)
@@ -78,7 +78,7 @@ This repository demonstrates **enterprise-grade DevSecOps practices** with a com
 
 ---
 
-## 📊 Quality Gates & Compliance
+<!-- ## 📊 Quality Gates & Compliance
 
 ### **Multi-Stage Quality Pipeline**
 
@@ -108,7 +108,7 @@ graph LR
 - 🏛️ **SOC 2 Type II** preparation
 - 📊 **GDPR** data protection ready
 
----
+--- -->
 
 ## 🌳 Git Branching Strategy
 
@@ -128,7 +128,7 @@ main (production) ←── Protected Branch
 #### **Main Branch (Production)**
 ```yaml
 Protection Level: MAXIMUM
-✅ Require PR reviews (2 approvals)
+✅ Require PR reviews (1 approvals)
 ✅ Require code owner review
 ✅ Dismiss stale reviews
 ✅ Require status checks to pass
@@ -364,9 +364,8 @@ git push origin feature/your-feature-name
 - ✅ **SOC 2 Type II** - Security controls (in progress)
 - ✅ **ISO 27001** - Information security (planned)
 
----
 
-## 📞 Support & Contact
+<!-- ## 📞 Support & Contact
 
 ### **DevOps Team**
 - **Lead DevOps Engineer**: WahbaMousa-DevOps
@@ -377,22 +376,8 @@ git push origin feature/your-feature-name
 ### **Emergency Contacts**
 - **Production Issues**: +1-xxx-xxx-xxxx
 - **Security Incidents**: security@aiopsvision.com
-- **Escalation Manager**: manager@aiopsvision.com
+- **Escalation Manager**: manager@aiopsvision.com -->
 
----
-
-## 📊 Project Statistics
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=WahbaMousa-DevOps&show_icons=true&theme=radical)
-
-### **Repository Metrics**
-- **Code Quality Score**: A+
-- **Security Score**: 95/100
-- **Test Coverage**: 87%
-- **Documentation Coverage**: 92%
-- **Pipeline Success Rate**: 98.5%
-
----
 
 *This repository demonstrates enterprise-level DevSecOps practices and serves as a reference implementation for modern CI/CD pipelines with comprehensive security integration.*
 
