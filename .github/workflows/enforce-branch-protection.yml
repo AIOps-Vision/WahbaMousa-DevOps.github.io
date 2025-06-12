@@ -23,9 +23,11 @@ jobs:
 
       - name: Set GH_TOKEN dynamically
         run: |
-         if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+          if [[ "${{ github.repository_owner }}" == "AIOps-Vision" ]]; then
+            echo "Using GH_TOKEN_ORG"
             echo "GH_TOKEN=${{ secrets.GH_TOKEN_ORG }}" >> $GITHUB_ENV
           else
+            echo "Using GH_TOKEN_FORK"
             echo "GH_TOKEN=${{ secrets.GH_TOKEN_FORK }}" >> $GITHUB_ENV
           fi
 
