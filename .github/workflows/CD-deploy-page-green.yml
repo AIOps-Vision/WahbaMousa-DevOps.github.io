@@ -9,7 +9,9 @@ on:
   push:
     branches:
       - release
- 
+  pull_request:
+    branches:
+      - release
 concurrency:
   group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false

@@ -8,6 +8,9 @@ on:
       - main
   repository_dispatch:
     types: [deploy-prod]
+  pull_request:
+    branches:
+      - main
 
 concurrency:
   group: "prod-deploy-${{ github.ref }}"
