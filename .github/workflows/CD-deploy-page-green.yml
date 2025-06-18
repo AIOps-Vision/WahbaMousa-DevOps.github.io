@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
