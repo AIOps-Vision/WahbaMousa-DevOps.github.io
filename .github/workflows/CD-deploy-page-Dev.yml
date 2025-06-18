@@ -9,6 +9,7 @@ on:
       - completed
     branches:
       - develop
+
 concurrency:
   group: "dev-deploy-${{ github.ref }}"
   cancel-in-progress: false
@@ -23,7 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
+
+    # Only run if the CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout
@@ -39,15 +43,18 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Download Jekyll Artifact  # add this with workflow aggregator using
-        uses: actions/download-artifact@v4 # v4 as public download
+      - name: Download Jekyll Artifact
+        uses: actions/download-artifact@v4
         with:
-          name: jekyll-site    # MUST match name in build.yml
+          name: jekyll-site
           path: ./_site
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3 # v3 as specific use not generic and needed for deploy v4 in next step
-        with:    # needed if above comment # removed and download activated , yes
+        uses: actions/upload-pages-artifact@v3
+        with:
           path: ./_site
 
       - name: Deploy to GitHub Pages
