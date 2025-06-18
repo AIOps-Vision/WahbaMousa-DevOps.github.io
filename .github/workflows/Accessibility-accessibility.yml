@@ -2,7 +2,9 @@ name: Accessibility Check
 
 on:
   push:
-    branches: [main]
+    branches:
+    - main
+    - release
   workflow_dispatch:
 
 jobs:
@@ -12,6 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run axe accessibility check
-        uses: actions/axe-core@v3
+        uses: amir295/axe-core-action@v1
         with:
-          url: ${{ env.ENV_BASE_URL }} # update to staging or local if needed
+          url: ${{ env.ENV_BASE_URL }} 
