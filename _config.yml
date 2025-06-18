@@ -3,19 +3,19 @@ subtitle: "DevOps Expert"
 name: "Wahba Mousa"
 description: "Certified Senior DevOps Expert — Azure, AWS, GitHub, Jenkins, Kubernetes, Terraform, Prometheus"
 locale: "EG"
-url: ${{ ENV_BASE_URL }}
+url: ${{ env.ENV_BASE_URL }}
 baseurl: "" # root domain
 repository: "WahbaMousa-DevOps/WahbaMousa-DevOps.github.io"
 minimal_mistakes_skin: "default"
 remote_theme: mmistakes/minimal-mistakes
 
 
-logo: "/assets/images/logo.jpg"
-masthead_title: "AIOps Vision"
-words_per_minute: 200
-paginate: 5
-permalink: /:categories/:title/
-timezone: "Africa/Cairo"
+# logo: "/assets/images/logo.jpg"
+# masthead_title: "AIOps Vision"
+# words_per_minute: 200
+# paginate: 5
+# permalink: /:categories/:title/
+# timezone: "Africa/Cairo"
 
 author:
   name: "Wahba Mousa"
@@ -35,7 +35,7 @@ author:
       url: "mailto:engineerwahba@gmail.com"
     - label: "Website"
       icon: "fas fa-globe"
-      url: ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
 
 footer:
   links:

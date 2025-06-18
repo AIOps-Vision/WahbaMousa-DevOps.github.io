@@ -1,0 +1,57 @@
+name: CI Pipeline
+
+on: # Jobs run in parallel by default unless you define needs: to specify order.
+  push:
+    branches: [main, release, develop, 'feature/*', 'hotfix/*']
+jobs:
+  call-tests:
+    uses: ./.github/workflows/CI-test.yml
+
+  call-lint:
+    uses: ./.github/workflows/CI-lint.yml
+
+  call-md-link:
+    uses: ./.github/workflows/Accessibility-links-check.yml
+
+  call-trivy:
+    uses: ./.github/workflows/Security-trivy.yml
+
+  call-sbom:
+    uses: ./.github/workflows/Security-sbom.yml
+
+  call-codeql:
+    uses: ./.github/workflows/Security-codeql.yml
+
+  call-scan:
+    uses: ./.github/workflows/Security-scan.yml
+    
+  # call-build:
+  #   uses: ./.github/workflows/CI-build.yml 
+    
+  build:
+    name: Build Site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Clean Old Site Folder (if exists)
+        run: rm -rf _site || true
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload Artifact for Deploy Workflow
+        uses: actions/upload-artifact@v4 # v4 as public use 
+        with:
+          name: jekyll-site    # MUST match deploy package name 
+          path: ./_site
+
+  call-coverage:
+    uses: ./.github/workflows/CI-coverage.yml

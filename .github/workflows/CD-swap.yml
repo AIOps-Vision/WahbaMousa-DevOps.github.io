@@ -1,0 +1,44 @@
+name: Swap Staging to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      swap_direction:
+        description: 'Enter "toblue" or "togreen" to confirm swap direction'
+        required: true
+
+jobs:
+  swap:
+    name: Swap Green ↔ Blue Environment
+    if: github.event.inputs.swap_direction == 'toblue' || github.event.inputs.swap_direction == 'togreen'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout destination branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.swap_direction == 'toblue' && 'blue' || 'green' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Merge source into destination
+        run: |
+          if [[ "${{ github.event.inputs.swap_direction }}" == "toblue" ]]; then
+            git fetch origin green:green
+            git merge --no-ff green -m "Swap: merge green into blue"
+            git push origin blue
+          elif [[ "${{ github.event.inputs.swap_direction }}" == "togreen" ]]; then
+            git fetch origin blue:blue
+            git merge --no-ff blue -m "Swap: merge blue into green"
+            git push origin green
+          fi
+
+      - name: Trigger Production Deployment
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          event-type: deploy-prod

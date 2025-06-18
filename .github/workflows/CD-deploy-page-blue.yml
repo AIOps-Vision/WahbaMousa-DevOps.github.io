@@ -1,0 +1,65 @@
+
+name: Deploy to Production
+
+on:
+  workflow_dispatch: {}  
+  push:
+    branches:
+      - main
+  repository_dispatch:
+    types: [deploy-prod]
+
+concurrency:
+  group: "prod-deploy-${{ github.ref }}"
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-Blue:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ ENV_BASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Jekyll gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-gems-
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # - name: Build with Jekyll
+      #   uses: actions/jekyll-build-pages@v1
+      #   with:
+      #     source: ./
+      #     destination: ./_site
+
+      - name: Download Jekyll Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jekyll-site    
+          path: ./_site
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:    
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        id: deployment
+      
+      - name: Verify deployment
+        run: echo "Deployed to:${{ steps.deployment.outputs.page_url }}"
+
+

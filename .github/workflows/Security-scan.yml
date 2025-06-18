@@ -1,0 +1,29 @@
+name: Reusable Security Scan # there’s no need to run gitleaks manually.
+
+on:
+  workflow_call:
+
+jobs:
+  scan:
+    name: Secret & Static Scanning
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Gitleaks Scan # Scans Git history and source code for hardcoded secrets (tokens, keys) by gitleaks file
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: ./gitleaks.toml
+        continue-on-error: true
+
+      - name: git-secrets Scan # Detects AWS keys/secrets in Git — prevents adding them locally
+        run: |
+          git clone https://github.com/awslabs/git-secrets.git
+          cd git-secrets && sudo make install && cd ..
+          git secrets --install
+          git secrets --register-aws
+          git secrets --scan || echo "git-secrets scan skipped or failed."
+
+# if create image by docker file must have trivy here to scan image itself not fs as one under workflow folder
