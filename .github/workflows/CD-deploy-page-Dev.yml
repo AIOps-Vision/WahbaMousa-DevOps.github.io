@@ -1,0 +1,44 @@
+name: Deploy to Dev
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: ${{ ENV_BASE_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Jekyll gems # caches Ruby gem dependencies (in vendor/bundle) based on the Gemfile.lock hash to speed up future Jekyll builds.
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: ${{ runner.os }}-gems-
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download Jekyll Artifact  # add this with workflow aggregator using
+        uses: actions/download-artifact@v4 # v4 as public download
+        with:
+          name: jekyll-site    # MUST match name in build.yml
+          path: ./_site
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3 # v3 as specific use not generic and needed for deploy v4 in next step
+        with:    # needed if above comment # removed and download activated
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        id: deployment
+      
+      - name: Verify deployment
+        run: echo "Deployed to:${{ steps.deployment.outputs.page_url }}"

@@ -11,7 +11,7 @@ on:
       - release
  
 concurrency:
-  group: "prod-deploy-${{ github.ref }}"
+  group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false
 
 permissions:
@@ -20,11 +20,11 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy: # change name with aggregator using in workflow
+  deploy-Green: # change name with aggregator using in workflow
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://staging.aiopsvision.com # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
+      url: ${{ ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,28 +36,25 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-gems-
 
-      # - name: Add Production CNAME
-      #   run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll  # remove if will use workflow aggregator
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-
-      # - name: Download Jekyll Artifact  # add this with workflow aggregator using
-      #   uses: actions/download-artifact@v4 # v4 as public download
+      # - name: Build with Jekyll  # remove if will use workflow aggregator
+      #   uses: actions/jekyll-build-pages@v1
       #   with:
-      #     name: jekyll-site    # MUST match name in build.yml
-      #     path: ./_site
+      #     source: ./
+      #     destination: ./_site
+
+      - name: Download Jekyll Artifact  # add this with workflow aggregator using
+        uses: actions/download-artifact@v4 # v4 as public download
+        with:
+          name: jekyll-site    # MUST match name in build.yml
+          path: ./_site
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3 # v3 as specific use not generic and needed for deploy v4 in next step
-        # with:    # needed if above comment # removed and download activated
-        #   path: ./_site
+        with:    # needed if above comment # removed and download activated
+          path: ./_site
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4

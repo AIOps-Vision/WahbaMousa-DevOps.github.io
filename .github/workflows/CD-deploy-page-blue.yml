@@ -2,15 +2,13 @@
 name: Deploy to Production
 
 on:
-  # workflow_run:
-  #   workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
-  #   types:
-  #     - completed
   workflow_dispatch: {}  
   push:
     branches:
       - main
- 
+  repository_dispatch:
+    types: [deploy-prod]
+
 concurrency:
   group: "prod-deploy-${{ github.ref }}"
   cancel-in-progress: false
@@ -21,11 +19,11 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy-Blue:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: https://wahba.aiopsvision.com # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
+      url: ${{ ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,28 +35,26 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-gems-
 
-      # - name: Add Production CNAME
-      #   run: echo "wahba.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-
-      # - name: Download Jekyll Artifact
-      #   uses: actions/download-artifact@v4
+      # - name: Build with Jekyll
+      #   uses: actions/jekyll-build-pages@v1
       #   with:
-      #     name: jekyll-site    
-      #     path: ./_site
+      #     source: ./
+      #     destination: ./_site
+
+      - name: Download Jekyll Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: jekyll-site    
+          path: ./_site
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
-        # with:    
-        #   path: ./_site
+        with:    
+          path: ./_site
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         id: deployment
