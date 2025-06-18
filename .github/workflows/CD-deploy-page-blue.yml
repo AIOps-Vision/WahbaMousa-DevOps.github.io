@@ -47,19 +47,8 @@ jobs:
           source: ./
           destination: ./_site
 
-      # - name: Set CNAME from ENV
-      #   run: echo "${{ env.ENV_BASE_URL }}" | sudo tee _site/CNAME
-
-      # - name: Download Jekyll Artifact
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: jekyll-site    
-      #     path: ./_site
-
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
-        # with:    
-        #   path: ./_site
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
