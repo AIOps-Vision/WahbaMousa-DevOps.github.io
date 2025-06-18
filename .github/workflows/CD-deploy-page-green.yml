@@ -2,7 +2,7 @@
 name: Deploy to Staging
 on:
   # workflow_run:
-  #   workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
+  #   workflows: ["CI Pipeline"]
   #   types:
   #     - completed
   workflow_dispatch: {}  
@@ -22,7 +22,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-deploy-Green: # change name with aggregator using in workflow
+  build-deploy-Green:
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -47,8 +47,8 @@ jobs:
           source: ./
           destination: ./_site
 
-      - name: Set CNAME from ENV
-        run: echo "${{ env.ENV_BASE_URL }}" | sudo tee _site/CNAME
+      # - name: Set CNAME from ENV
+      #   run: echo "${{ env.ENV_BASE_URL }}" | sudo tee _site/CNAME
 
 
       # - name: Download Jekyll Artifact  # add this with workflow aggregator using
