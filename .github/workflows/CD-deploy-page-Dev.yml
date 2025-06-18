@@ -1,11 +1,7 @@
 name: Deploy to Dev
 
 on:
-  workflow_run:
-    workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
   workflow_dispatch: {}  
-  # push:
-  #   branches: [develop]
 
 concurrency:
   group: "dev-deploy-${{ github.ref }}"
@@ -18,7 +14,6 @@ permissions:
 
 jobs:
   deploy-dev:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: dev
