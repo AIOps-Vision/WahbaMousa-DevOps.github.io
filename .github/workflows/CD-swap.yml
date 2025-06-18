@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       swap_direction:
-        description: 'Enter "toblue" or "togreen" to confirm swap direction'
+        description: 'Enter "toblue" (promote green to blue) or "togreen" (promote blue to green)'
         required: true
 
 jobs:
@@ -17,6 +17,7 @@ jobs:
       - name: Checkout destination branch
         uses: actions/checkout@v4
         with:
+          # Checkout the branch we're promoting TO (the destination)
           ref: ${{ github.event.inputs.swap_direction == 'toblue' && 'blue' || 'green' }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -25,15 +26,19 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Merge source into destination
+      - name: Perform swap merge
         run: |
           if [[ "${{ github.event.inputs.swap_direction }}" == "toblue" ]]; then
+            # Promote green TO blue (green becomes production)
+            echo "Promoting green branch to blue (production)"
             git fetch origin green:green
-            git merge --no-ff green -m "Swap: merge green into blue"
+            git merge --no-ff green -m "Promote green to blue (production)"
             git push origin blue
           elif [[ "${{ github.event.inputs.swap_direction }}" == "togreen" ]]; then
+            # Promote blue TO green (blue becomes production)  
+            echo "Promoting blue branch to green (production)"
             git fetch origin blue:blue
-            git merge --no-ff blue -m "Swap: merge blue into green"
+            git merge --no-ff blue -m "Promote blue to green (production)"
             git push origin green
           fi
 
