@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache Jekyll gems # caches Ruby gem dependencies (in vendor/bundle) based on the Gemfile.lock hash to speed up future Jekyll builds.
+      - name: Cache Jekyll gems
         uses: actions/cache@v4
         with:
           path: vendor/bundle
