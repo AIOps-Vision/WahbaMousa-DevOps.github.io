@@ -47,8 +47,11 @@ jobs:
           source: ./
           destination: ./_site
 
-      - name: Set CNAME with tee
-        run: echo "${{ env.ENV_BASE_URL }}" | tee _site/CNAME
+      - name: Fix folder permissions
+        run: chmod -R u+w _site
+
+      - name: Set CNAME from ENV
+        run: echo "${{ env.ENV_BASE_URL }}" > _site/CNAME
 
 
       # - name: Download Jekyll Artifact  # add this with workflow aggregator using
