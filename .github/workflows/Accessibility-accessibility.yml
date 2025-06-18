@@ -14,4 +14,4 @@ jobs:
       - name: Run axe accessibility check
         uses: actions/axe-core@v3
         with:
-          url: ${{ ENV_BASE_URL }} # update to staging or local if needed
+          url: ${{ env.ENV_BASE_URL }} # update to staging or local if needed
