@@ -43,7 +43,7 @@ jobs:
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3 # v3 as specific use not generic and needed for deploy v4 in next step
-        with:    # needed if above comment # removed and download activated
+        with:    # needed if above comment # removed and download activated , yes
           path: ./_site
 
       - name: Deploy to GitHub Pages
