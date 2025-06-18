@@ -1,14 +1,18 @@
 name: Deploy to Dev
 
 on:
-  workflow_dispatch: {}  
-  push:
-    branches: [develop]
+  workflow_run:
+    workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
+    types:
+      - completed
+  # workflow_dispatch: {}  
+  # push:
+  #   branches: [develop]
 
 concurrency:
   group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false
-  
+
 permissions:
   contents: read
   pages: write
@@ -16,6 +20,7 @@ permissions:
 
 jobs:
   deploy-dev:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}  # ✅ Only run if CI succeeded
     runs-on: ubuntu-latest
     environment:
       name: dev
