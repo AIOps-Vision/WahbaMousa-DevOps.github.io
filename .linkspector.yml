@@ -3,11 +3,11 @@ aliveStatusCodes:
   - 406
   - 429
 dirs:
- # - .
+  - .
   - .github
 excludedDirs:
   - assets/
-  - _includes/
+  # - _includes/
 ignorePatterns:
   - pattern: "^https://github.com/microsoft/mcr.*$"
   - pattern: "^https://github.com/dotnet/release.*$"

@@ -2,11 +2,11 @@ name: Lint and Link Check
 
 on:
   workflow_call:
-  # push:
-  #   paths:
-  #     - '**.md'
-  #     - .markdownlint.yml
-  #     - .linkspector.yml
+  push:
+    paths:
+      - '**.md'
+      - .markdownlint.yml
+      - .linkspector.yml
 
 jobs:
   md-link:
