@@ -9,7 +9,9 @@ on:
   push:
     branches:
       - release
- 
+  pull_request:
+    branches:
+      - release
 concurrency:
   group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false
@@ -20,7 +22,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-Green: # change name with aggregator using in workflow
+  build-deploy-Green: # change name with aggregator using in workflow
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -44,6 +46,9 @@ jobs:
         with:
           source: ./
           destination: ./_site
+
+      # - name: Inject CNAME from ENV_BASE_URL
+      #   run: echo "${{ env.ENV_BASE_URL }}" > _site/CNAME
 
       # - name: Download Jekyll Artifact  # add this with workflow aggregator using
       #   uses: actions/download-artifact@v4 # v4 as public download
