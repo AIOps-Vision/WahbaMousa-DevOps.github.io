@@ -19,7 +19,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-Blue:
+  build-deploy-Blue:
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -43,6 +43,9 @@ jobs:
         with:
           source: ./
           destination: ./_site
+
+      - name: Inject CNAME from ENV_BASE_URL
+        run: echo "${{ env.ENV_BASE_URL }}" > _site/CNAME
 
       # - name: Download Jekyll Artifact
       #   uses: actions/download-artifact@v4
