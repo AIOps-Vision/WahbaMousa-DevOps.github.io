@@ -2,8 +2,12 @@ name: Deploy to Dev
 
 on:
   workflow_dispatch: {}  
-  push:
-    branches: [develop]
+  # push:
+  #   branches: [develop]
+  workflow_run:
+    workflows: ["CI Pipeline"] # must exactly match the name in CI-ci.yml
+    types:
+      - completed
 
 concurrency:
   group: "dev-deploy-${{ github.ref }}"
