@@ -3,9 +3,13 @@ name: Deploy to Dev
 on:
   workflow_run:
     workflows: ["CI Pipeline"]  # MUST match ci.yml's name and add here if this deploy use its package where build is in it directly not separated
-    types:
-      - completed
   workflow_dispatch: {}  
+  # push:
+  #   branches: [develop]
+
+concurrency:
+  group: "dev-deploy-${{ github.ref }}"
+  cancel-in-progress: false
 
 permissions:
   contents: read
