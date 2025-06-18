@@ -12,30 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          
-      - name: Install dependencies
-        run: |
-          npm install
-          
-      - name: Build application
-        run: |
-          npm run build
-          
-      - name: Run accessibility tests
-        uses: treosh/lighthouse-ci-action@v10
-        with:
-          urls: ${{ vars.ENV_BASE_URL }}
-          configPath: '.lighthouserc.json'
-          
-      - name: Upload results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: lighthouse-results
-          path: .lighthouseci
+
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Install dependencies
+      run: npm install
+    - name: Start local server
+      run: npm start &  # Run in background
+    - name: Run axe check
+      uses: amir295/axe-core-action@v1
+      with:
+        url: "http://localhost:3000"  # Use your app's local port
