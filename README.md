@@ -11,7 +11,7 @@
 - Blue-Green deployment strategy
 - Branch protection enforcement via GitHub CLI
 
-[![CI Pipeline](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/workflows/CI%20Pipeline/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/ci.yml)
+[![CI Pipeline](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/CI-ci.yml/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/CI-ci.yml)
 [![Deploy to Green](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/workflows/Deploy%20to%20Staging/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/deploy-staging.yml)
 [![Deploy to Blue](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/workflows/Deploy%20to%20Production/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/deploy-production.yml)
 
