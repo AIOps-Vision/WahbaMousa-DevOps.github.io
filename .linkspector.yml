@@ -3,7 +3,7 @@ aliveStatusCodes:
   - 406
   - 429
 dirs:
-  - .
+ # - .
   - .github
 excludedDirs:
   - assets/
