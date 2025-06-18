@@ -5,6 +5,10 @@ on:
   push:
     branches: [develop]
 
+concurrency:
+  group: "stag-deploy-${{ github.ref }}"
+  cancel-in-progress: false
+  
 permissions:
   contents: read
   pages: write
