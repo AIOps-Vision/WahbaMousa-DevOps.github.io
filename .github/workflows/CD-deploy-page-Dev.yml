@@ -1,8 +1,14 @@
 name: Deploy to Dev
 
 on:
+  workflow_dispatch: {}  
   push:
     branches: [develop]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy-dev:
