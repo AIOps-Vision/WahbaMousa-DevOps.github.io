@@ -1,4 +1,4 @@
-# Wahba Mousa – DevOps Portfolio Website
+# Wahba Mousa – DevSecOps Portfolio Website (CI/CD + GitHub Pages)
 
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?style=flat-square) ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 [![Security Rating](https://img.shields.io/badge/security-A+-green.svg)](https://github.com/your-username/your-repo/security)
@@ -6,254 +6,204 @@
 
 👤 **Created by**: Wahba Mousa – Senior DevOps Engineer
 
-🛠️ **Built With**: [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes)
+- CI/CD with GitHub Actions
+- Security-first architecture (CodeQL, Trivy, Gitleaks, SBOM)
+- Blue-Green deployment strategy
+- Branch protection enforcement via GitHub CLI
 
-<!-- [![Deploy to Staging](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Staging/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-staging.yml)
-[![Deploy to Production](https://github.com/your-username/your-repo/workflows/Deploy%20to%20Production/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/deploy-production.yml)
-[![CI Pipeline](https://github.com/your-username/your-repo/workflows/CI%20Pipeline/badge.svg)](https://github.com/your-username/your-repo/actions/workflows/ci.yml) -->
+[![CI Pipeline](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/CI-ci.yml/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/CI-ci.yml)
+[![Deploy to Green](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/workflows/Deploy%20to%20Staging/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/deploy-staging.yml)
+[![Deploy to Blue](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/workflows/Deploy%20to%20Production/badge.svg)](https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/actions/workflows/deploy-production.yml)
 
-## 🏗️ Architecture Overview
+## 🏗️ Architecture Overview: CI/CD + Security Flow
 
-This repository demonstrates **enterprise-grade DevSecOps practices** with a comprehensive CI/CD pipeline, security-first approach, and multi-environment deployment strategy.
+```
+                ┌─────────────────────────────────────────────┐
+                │                GitHub Repo                  │
+                │      WahbaMousa-DevOps.github.io            │
+                └─────────────────────────────────────────────┘
+                               │
+            ┌──────────────────┼────────────────────┐
+            ▼                  ▼                    ▼
+     Pull Request        Direct Pushes         Staticman API
+ (e.g., feature → main)   (e.g., main)        (user comments form)
+            │                  │                    │
+            ▼                  ▼                    ▼
+    .github/workflows/  .github/workflows/     staticman.yml
+    └─ CI triggers:     └─ Deploy triggers         │
+       test.yml             to staging/prod        ▼
+       lint.yml             ───────────────►  _data/comments/ (via commit)
+       trivy.yml
+       codeql.yml
+       scan.yml
+       sbom.yml
+       sbom-sign.yml
+       lighthouse.yml
+       accessibility.yml
+       coverage.yml
+            │
+            ▼
+ ┌──────────────────────────────────────────────┐
+ │     CI & Security Checks (Parallel Jobs)     │
+ │ - Trivy FS + Trivy Image                     │
+ │ - Gitleaks + git-secrets                     │
+ │ - CodeQL + Jest Coverage                     │
+ │ - SEO + Accessibility + SBOM                 │
+ └──────────────────────────────────────────────┘
+            │
+            ▼
+ ┌────────────────────────────────────────────────────────────┐
+ │        Auto-label/merge (PR Bot), Bad PR Filter            │
+ │    └─ auto-label.yml, auto-merge.yml, bad-pr.yml           │
+ └────────────────────────────────────────────────────────────┘
+            │
+            ▼
+ ┌────────────────────────────────────┐
+ │     Branch Protection Enforcement  │
+ │ └─ enforce-branch-protection.yml   │
+ │    └─ Reads: branch-protection.yml │
+ │    └─ Applies via Python/CLI       │
+ └────────────────────────────────────┘
+            │
+            ▼
+ ┌────────────────────────────────────────────────────────────┐
+ │      GitHub Pages Deploy (CD)                              │
+ │ └─ deploy-page-staging.yml  →  "Green" Environment         │
+ │ └─ deploy-page-production.yml  →  "Blue" Environment       │
+ │                                                            │
+ │      Manual Swap via: swap.yml                             │
+ │    Logic: staging (green) → main (blue)                    │
+ └────────────────────────────────────────────────────────────┘
+            │
+            ▼
+ ┌──────────────────────────────────────────────┐
+ │             Public Websites                  │
+ │  ┌────────────────────┐  ┌────────────────┐  │
+ │  │ staging.aiopsvision│  │wahba.aiopsvision│ │
+ │  │     (Green)        │  │     (Blue)     │  │
+ │  └────────────────────┘  └────────────────┘  │
+ └──────────────────────────────────────────────┘
 
-![See More](./assets/images/Architecture.png)
+```
+📝 Note: `sbom-image.yml` and Cosign-based Docker image signing are included as modular references for future container-based pipelines. They are **not active** in this static GitHub Pages project.
 
-### 🌐 Live Environments
-- **Production**: [https://wahba.aiopsvision.com](https://wahba.aiopsvision.com)
-- **Staging**: [https://staging.aiopsvision.com](https://staging.aiopsvision.com)
 
----
+### 🌐  Blue-Green Deployments
+- **Blue**: [https://wahba.aiopsvision.com](https://wahba.aiopsvision.com)
+- **Green**: [https://staging.aiopsvision.com](https://staging.aiopsvision.com)
 
 ## 🚀 Technology Stack
 
-### **Frontend**
-- **Jekyll** - Static Site Generator
-- **GitHub Pages** - Hosting Platform
-- **Custom CNAME** - Domain Management
-
-### **Infrastructure**
-- **GitHub Actions** - CI/CD Orchestration
-- **GitHub Environments** - Multi-stage Deployment
-- **Artifact Management** - Build Promotion Strategy
-
----
+| Area        | Tools/Tech                                   |
+|-------------|----------------------------------------------|
+| Frontend    | Jekyll, GitHub Pages           |
+| CI/CD       | GitHub Actions, Environments, Artifacts      |
+| Security    | CodeQL, Trivy (FS), Gitleaks, Secret Scanning|
+| Branching   | GitFlow (`main`, `release`, `develop`, etc.) |
+| SBOM        | Anchore (CycloneDX), Syft (reference only)   |
+| Governance  | Branch protection rules, PR automation       |
 
 ## 🔒 Security Architecture
+### Aligned with OWASP Standards
 
-### **Static Application Security Testing (SAST)**
+| Area                                 | How You're Covered                                    |
+|--------------------------------------|-------------------------------------------------------|
+| **Secrets in Code (A03:2021)**       | `gitleaks`, `git-secrets`, `secret.yml`               |
+| **Vulnerable Components (A06:2021)** | `Trivy FS`, `Trivy Image`, `SBOM`                     |
+| **Security Misconfig (A05:2021)**    | GitHub branch protection, token management            |
+| **Software Integrity (A08:2021)**    | `Cosign` signing, `SBOM` attestation                  |
+| **CI/CD Exposure (A10:2021)**        | Modular workflows + policy enforcement                |
+| **OWASP CycloneDX**                  | SBOM format generated via `sbom.yml`, `sbom-sign.yml` |
 
-#### **CodeQL Analysis**
-```yaml
-- Advanced semantic code analysis
-- Zero-day vulnerability detection
-- OWASP Top 10 compliance
-- Custom security rules
-```
+### Verified Quality Metrics
 
-#### **Dependency Scanning**
-```yaml
-- Trivy vulnerability scanner
-- CVE database integration
-- License compliance checking
-- Continuous monitoring
-```
+| Metric            | Status           | Notes                                                |
+|-------------------|------------------|------------------------------------------------------|
+| **Code Coverage** | Enabled       | Reported via Jest + Codecov                         |
+| **Security Score**| A+ Equivalent | Secret scanning, SBOM, image signing                |
+| **Performance**   | <2s load time | Jekyll site + CDN = fast load                       |
+| **Accessibility** | Enabled       | Checked via axe-core CI workflow                    |
+| **SEO Score**     | >90/100       | Verified via Lighthouse CI audit                    |
 
-### **Dynamic Security Testing**
-
-#### **Supply Chain Security**
-```yaml
-- SBOM (Software Bill of Materials) generation
-- SLSA (Supply Chain Levels for Software Artifacts) compliance
-- Artifact signing and verification
-- Dependency provenance tracking
-```
-
-#### **Runtime Security**
-```yaml
-- Container image scanning
-- Infrastructure as Code security
-- Secrets management
-- Environment isolation
-```
-
----
-
-<!-- ## 📊 Quality Gates & Compliance
-
-### **Multi-Stage Quality Pipeline**
-
-```mermaid
-graph LR
-    A[Code Commit] --> B[Static Analysis]
-    B --> C[Security Scan]
-    C --> D[Quality Gate]
-    D --> E[Build Artifact]
-    E --> F[Deploy Staging]
-    F --> G[Integration Tests]
-    G --> H[Security Validation]
-    H --> I[Deploy Production]
-```
-
-### **Quality Metrics**
-- ✅ **Code Coverage**: >80% requirement
-- ✅ **Security Score**: A+ rating
-- ✅ **Performance**: <2s load time
-- ✅ **Accessibility**: WCAG 2.1 AA compliant
-- ✅ **SEO Score**: >90/100
-
-### **Compliance Standards**
-- 🛡️ **NIST Cybersecurity Framework**
-- 🔐 **OWASP Security Guidelines**
-- 📋 **SLSA Supply Chain Security**
-- 🏛️ **SOC 2 Type II** preparation
-- 📊 **GDPR** data protection ready
-
---- -->
 
 ## 🌳 Git Branching Strategy
 
 ### **GitFlow Implementation**
 
 ```
-main (production) ←── Protected Branch
-├── release (staging) ←── Integration Branch  
-    ├── develop ←── Development Branch
-        ├── feature/* ←── Feature Branches
-        ├── hotfix/* ←── Emergency Fixes
-        └── bugfix/* ←── Bug Fixes
+main        ← 🟦 Blue Environment (Production)
+├── release ← 🟩 Green Environment (Staging)
+    ├── develop       ← Integration / QA Branch
+        ├── feature/* ← New Features
+        ├── hotfix/*  ← Emergency Fixes
+        └── bugfix/*  ← Bug Patches
+
 ```
+swap.yml is used to promote release → main after successful staging validation.
 
 ### **Branch Protection Rules**
 
-#### **Main Branch (Production)**
+#### **Main Branch (Blue – Production)**
 ```yaml
-Protection Level: MAXIMUM
-✅ Require PR reviews (1 approvals)
-✅ Require code owner review
-✅ Dismiss stale reviews
-✅ Require status checks to pass
-✅ Require branches up to date
-✅ Restrict force pushes
-✅ Restrict deletions
-✅ Require linear history
-✅ Require conversation resolution
+Require PR review (1+)
+Require code owner review
+Require status checks to pass
+Require branches up to date
+Require conversation resolution
+Require linear history
+Lock branch (prevent bypass)
+Restrict force pushes
+Restrict deletions
+
 ```
 
-#### **Release Branch (Staging)**  
+#### **Release Branch (Green – Staging → Production Candidate)**
 ```yaml
-Protection Level: HIGH
-✅ Require PR reviews (1 approval)
-✅ Require status checks to pass
-✅ Restrict force pushes
-✅ Require linear history
-```
+Require PR review (1+)
+Require code owner review
+Require status checks to pass
+Require branches up to date
+Require conversation resolution
+Require linear history
+Lock branch (prevent bypass)
+Restrict force pushes
+Restrict deletions
 
----
+```
 
 ## 🔄 CI/CD Pipeline Architecture
 
 ### **Continuous Integration**
 
 ```yaml
-Triggers: Push to [release, develop, feature/*, hotfix/*]
-Pipeline Stages:
-  1. 🏗️  Build & Compile
-  2. 🧪 Unit & Integration Tests
-  3. 📊 Code Quality Analysis
-  4. 🔍 Static Security Analysis
-  5. 🛡️  Dependency Vulnerability Scan
-  6. 📋 SBOM Generation
-  7. 📦 Artifact Creation
-  8. ✅ Quality Gate Validation
+Triggers: Push to [develop, feature/*, hotfix/*, release, main]
+
+Stages:
+  1. Build with Jekyll (or App Build)
+  2. Unit Tests (Jest / npm test)
+  3. Lint (Markdown, JS, etc.)
+  4. Code Coverage + Lighthouse + SEO
+  5. CodeQL Security Scan
+  6. Trivy FS Scan (Source)
+  7. Trivy Image Scan (Docker)
+  8. SBOM Generation (Syft / Trivy)
+  9. Image Signing (Cosign)
+ 10. Quality Gate Summary
 ```
-
-### **Continuous Deployment**
-
-#### **Staging Deployment**
+### **🚀 Continuous Deployment**
 ```yaml
-Trigger: Push to 'release' branch
-Environment: staging.aiopsvision.com
-Protection: Automatic deployment
-Validation: Smoke tests, security checks
+➤ deploy-page-staging.yml → Green (staging.aiopsvision.com)
+➤ deploy-page-production.yml → Blue (wahba.aiopsvision.com)
+➤ swap.yml → Manually promote Green → Blue
 ```
-
-#### **Production Deployment**
-```yaml
-Trigger: Push to 'main' branch
-Environment: wahba.aiopsvision.com
-Protection: Manual approval required
-Validation: Full test suite, security validation
-```
-
----
-
-## 🛠️ DevOps Tools & Technologies
-
-### **CI/CD Orchestration**
-- **GitHub Actions** - Workflow automation
-- **GitHub Environments** - Deployment management
-- **Artifact Registry** - Build storage
-
-### **Security Tools**
-- **CodeQL** - Static Application Security Testing
-- **Trivy** - Vulnerability scanner
-- **GitHub Dependabot** - Dependency management
-- **Secret Scanning** - Credential protection
-
-### **Quality Assurance**
-- **ESLint/Prettier** - Code formatting
-- **Lighthouse** - Performance auditing
-- **Pa11y** - Accessibility testing
-- **Jest** - Unit testing framework
-
-### **Monitoring & Observability**
-- **GitHub Insights** - Repository analytics
-- **Workflow Monitoring** - Pipeline observability
-- **Security Alerts** - Threat detection
-- **Performance Metrics** - Site monitoring
-
----
-
-## 🚦 Pipeline Status & Metrics
-
-### **Deployment Frequency**
-- **Staging**: Multiple deployments per day
-- **Production**: Weekly scheduled releases
-- **Hotfixes**: Emergency deployment capability
-
-### **Lead Time**
-- **Feature to Staging**: <2 hours
-- **Staging to Production**: <24 hours
-- **Hotfix Deployment**: <30 minutes
-
-### **Mean Time to Recovery (MTTR)**
-- **Staging Issues**: <15 minutes
-- **Production Issues**: <1 hour
-- **Security Incidents**: <30 minutes
-
-### **Change Failure Rate**
-- **Target**: <5%
-- **Current**: 2.1%
-- **Rollback Time**: <5 minutes
-
----
 
 ## 🔧 Local Development
-
-### **Prerequisites**
-```bash
-# Required tools
-- Ruby >= 3.0
-- Jekyll >= 4.0
-- Git >= 2.30
-- Node.js >= 16.0 (for tooling)
-```
 
 ### **Setup Instructions**
 ```bash
 # Clone repository
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io.git
+cd WahbaMousa-DevOps.github.io
 
 # Install dependencies
 bundle install
@@ -285,48 +235,6 @@ git push origin feature/your-feature-name
 # Create pull request to develop branch
 ```
 
----
-
-## 🛡️ Security Practices
-
-### **Secure Development Lifecycle (SDL)**
-1. **Threat Modeling** - Architecture review
-2. **Secure Coding** - OWASP guidelines
-3. **Static Analysis** - Automated security testing
-4. **Dynamic Testing** - Runtime security validation
-5. **Penetration Testing** - Manual security assessment
-6. **Security Monitoring** - Continuous threat detection
-
-### **Supply Chain Security**
-- **Dependency Pinning** - Exact version control
-- **Signature Verification** - Package authenticity
-- **SBOM Generation** - Component transparency
-- **License Compliance** - Legal requirement tracking
-
-### **Incident Response**
-- **Security Runbook** - Step-by-step procedures
-- **Escalation Matrix** - Contact information
-- **Recovery Procedures** - Disaster recovery plans
-- **Post-incident Reviews** - Continuous improvement
-
----
-
-## 📈 Performance & Monitoring
-
-### **Performance Targets**
-- **First Contentful Paint**: <1.5s
-- **Largest Contentful Paint**: <2.5s
-- **Cumulative Layout Shift**: <0.1
-- **Time to Interactive**: <3.0s
-
-### **Monitoring Stack**
-- **Uptime Monitoring** - 99.9% availability target
-- **Performance Monitoring** - Core Web Vitals tracking
-- **Error Tracking** - Exception monitoring
-- **User Analytics** - Behavior insights
-
----
-
 ## 🤝 Contributing
 
 ### **Contribution Guidelines**
@@ -336,33 +244,8 @@ git push origin feature/your-feature-name
 4. Ensure all quality gates pass
 5. Submit pull request with detailed description
 6. Code review and approval process
-7. Automated deployment to staging
-8. Manual promotion to production
-
-### **Code Standards**
-- **Semantic Commits** - Conventional commit format
-- **Code Reviews** - Mandatory peer review
-- **Documentation** - Update relevant docs
-- **Testing** - Maintain test coverage >80%
-
----
-
-## 📄 Documentation
-
-- **[API Documentation](./docs/api.md)** - Technical specifications
-- **[Security Playbook](./docs/security.md)** - Security procedures
-- **[Deployment Guide](./docs/deployment.md)** - Release management
-- **[Troubleshooting](./docs/troubleshooting.md)** - Common issues
-
----
-
-## 🏆 Certifications & Compliance
-
-- ✅ **OWASP Top 10** - Security compliance
-- ✅ **NIST Cybersecurity Framework** - Risk management  
-- ✅ **SLSA Level 3** - Supply chain security
-- ✅ **SOC 2 Type II** - Security controls (in progress)
-- ✅ **ISO 27001** - Information security (planned)
+7. Automated deployment to green
+8. Swap promotion to blue
 
 
 <!-- ## 📞 Support & Contact
@@ -378,20 +261,15 @@ git push origin feature/your-feature-name
 - **Security Incidents**: security@aiopsvision.com
 - **Escalation Manager**: manager@aiopsvision.com -->
 
-
-*This repository demonstrates enterprise-level DevSecOps practices and serves as a reference implementation for modern CI/CD pipelines with comprehensive security integration.*
-
-**Built with ❤️ by the DevOps Team | © 2025 AI Ops Vision**
+> 📦 Designed and implemented by Wahba Mousa — Senior DevSecOps Engineer (2025)
+This repository serves as a real-world demonstration of CI/CD + DevSecOps excellence on GitHub.
 
 ## 📚 Credits & License
-* Theme: [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) by [Michael Rose](https://mademistakes.com/)
+* Theme: [Jekyll](https://jekyllrb.com/) + [Minimal Mistakes](https://github.com/mmistakes/minimal-mistakes) by [Michael Rose](https://mademistakes.com/)
 * Customizations by [Wahba Mousa](https://github.com/engineerwahba)
 
 Licensed under [MIT](LICENSE)
 
 ## 💬 Feedback
 If you have questions or want to learn how to build a similar site, feel free to:
-
-* Fork this repo
-* Open an issue
 * Connect with me on [LinkedIn](https://www.linkedin.com/in/engineerwahba/)

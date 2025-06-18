@@ -1,0 +1,17 @@
+name: Accessibility Check
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run axe accessibility check
+        uses: actions/axe-core@v3
+        with:
+          url: ${{ ENV_BASE_URL }} # update to staging or local if needed

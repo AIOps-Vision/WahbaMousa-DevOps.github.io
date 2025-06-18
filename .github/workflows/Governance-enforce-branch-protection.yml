@@ -3,6 +3,7 @@ on:
   pull_request:
     branches: 
       - main
+      - release
   push:
     paths:
       - .github/branch-protection.yml

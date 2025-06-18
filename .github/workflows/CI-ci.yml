@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on: # Jobs run in parallel by default unless you define needs: to specify order.
+  push:
+    branches: [main, release, develop, 'feature/*', 'hotfix/*']
+jobs:
+  call-tests:
+    uses: ./.github/workflows/CI-test.yml
+
+  call-lint:
+    uses: ./.github/workflows/CI-lint.yml
+
+  call-md-link:
+    uses: ./.github/workflows/Accessibility-links-check.yml
+
+  call-trivy:
+    uses: ./.github/workflows/Security-trivy.yml
+
+  call-sbom:
+    uses: ./.github/workflows/Security-sbom.yml
+
+  call-codeql:
+    uses: ./.github/workflows/Security-codeql.yml
+
+  call-scan:
+    uses: ./.github/workflows/Security-scan.yml
+    
+  call-build:
+    uses: ./.github/workflows/CI-build.yml 
+
+  call-coverage:
+    uses: ./.github/workflows/CI-coverage.yml

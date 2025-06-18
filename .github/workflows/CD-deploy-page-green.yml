@@ -11,7 +11,7 @@ on:
       - release
  
 concurrency:
-  group: "prod-deploy-${{ github.ref }}"
+  group: "stag-deploy-${{ github.ref }}"
   cancel-in-progress: false
 
 permissions:
@@ -20,11 +20,11 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy: # change name with aggregator using in workflow
+  deploy-Green: # change name with aggregator using in workflow
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://staging.aiopsvision.com # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,9 +35,6 @@ jobs:
           path: vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: ${{ runner.os }}-gems-
-
-      # - name: Add Production CNAME
-      #   run: echo "staging.aiopsvision.com" > ./_site/CNAME # add in production settings in environment variables with: ENV_BASE_URL and reverse here by ${{ ENV_BASE_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
