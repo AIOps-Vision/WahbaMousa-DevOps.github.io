@@ -1,1 +1,1 @@
-We do not collect personal data. No tracking or analytics tools are used. For contact: engineerwahba@gmail.com
+We do not collect personal data. No tracking or analytics tools are used.
