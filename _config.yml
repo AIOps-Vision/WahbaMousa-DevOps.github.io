@@ -3,7 +3,7 @@ subtitle: "DevOps Expert"
 name: "Wahba Mousa"
 description: "Certified Senior DevOps Expert — Azure, AWS, GitHub, Jenkins, Kubernetes, Terraform, Prometheus"
 locale: "EG"
-url: ${{ ENV_BASE_URL }}
+url: ${{ env.ENV_BASE_URL }}
 baseurl: "" # root domain
 repository: "WahbaMousa-DevOps/WahbaMousa-DevOps.github.io"
 minimal_mistakes_skin: "default"
@@ -35,7 +35,7 @@ author:
       url: "mailto:engineerwahba@gmail.com"
     - label: "Website"
       icon: "fas fa-globe"
-      url: ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
 
 footer:
   links:

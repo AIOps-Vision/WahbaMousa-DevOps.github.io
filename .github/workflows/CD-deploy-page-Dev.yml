@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: dev
-      url: ${{ ENV_BASE_URL }}
+      url: ${{ env.ENV_BASE_URL }}
 
     steps:
       - name: Checkout
