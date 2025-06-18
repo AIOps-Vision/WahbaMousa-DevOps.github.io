@@ -1,10 +1,10 @@
 name: Accessibility Check
 
 on:
-  push:
-    branches:
-    - main
-    - release
+  # push:
+  #   branches:
+  #   - main
+  #   - release
   workflow_dispatch:
 
 jobs:
