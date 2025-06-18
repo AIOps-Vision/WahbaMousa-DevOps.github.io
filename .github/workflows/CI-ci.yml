@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on: # Jobs run in parallel by default unless you define needs: to specify order.
   push:
-    branches: [main, release, develop, 'feature/*', 'hotfix/*']
+    branches: [develop, 'feature/*', 'hotfix/*']
 jobs:
   call-tests:
     uses: ./.github/workflows/CI-test.yml
