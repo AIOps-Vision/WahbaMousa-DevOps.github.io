@@ -1,5 +1,5 @@
 
-name: Deploy to Production
+name: Deploy to Production - Rolling Deployment
 
 on:
   workflow_dispatch: {}  
