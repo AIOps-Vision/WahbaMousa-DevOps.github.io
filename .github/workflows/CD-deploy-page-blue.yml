@@ -66,6 +66,6 @@ jobs:
         id: deployment
       
       - name: Verify deployment
-        run: echo "Deployed to: ${{ steps.deployment.outputs.page_url }}"
+        run: echo "Deployed to:${{ steps.deployment.outputs.page_url }}"
 
 
