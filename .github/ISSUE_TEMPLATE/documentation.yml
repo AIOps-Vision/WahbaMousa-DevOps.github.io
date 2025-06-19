@@ -1,38 +1,38 @@
-name: 📚 Documentation Fix
+name: Documentation Fix
 description: Report typos, unclear content, or outdated documentation.
 labels: [documentation]
 body:
   - type: markdown
     attributes:
       value: |
-        ## 📘 Documentation Improvement
+        ## Documentation Improvement
 
-        Thanks for helping improve the documentation!  
-        Please provide details below so we can address the issue effectively.
+        Thank you for helping improve the documentation.  
+        Please provide the details below so we can review and resolve the issue.
 
   - type: textarea
     id: motivation
     attributes:
-      label: ✏️ What Needs Improvement?
+      label: What needs improvement?
       description: |
-        What part of the documentation is confusing, outdated, or wrong?
-        Please be specific (e.g., broken link, unclear section, etc.).
+        What part of the documentation is confusing, outdated, or incorrect?
+        Please be specific (e.g., broken link, unclear instructions).
     validations:
       required: true
 
   - type: textarea
     id: suggestion
     attributes:
-      label: 💡 Suggested Fix
+      label: Suggested fix
       description: |
-        How should we fix or improve it? If you have wording suggestions, include them here.
+        How would you suggest we fix or improve it? If you have wording suggestions or links, include them here.
     validations:
       required: true
 
   - type: input
     id: affected-page
     attributes:
-      label: 🔗 Link to Affected Page (if any)
-      placeholder: https://aiopsvision.com/docs/...
+      label: Link to affected page (if any)
+      placeholder: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io#readme
     validations:
       required: false

@@ -39,7 +39,7 @@
        sbom.yml
        sbom-sign.yml
        lighthouse.yml
-       accessibility.yml
+
        coverage.yml
             │
             ▼
@@ -67,21 +67,18 @@
             │
             ▼
  ┌────────────────────────────────────────────────────────────┐
- │      GitHub Pages Deploy (CD)                              │
- │ └─ deploy-page-staging.yml  →  "Green" Environment         │
- │ └─ deploy-page-production.yml  →  "Blue" Environment       │
- │                                                            │
- │      Manual Swap via: swap.yml                             │
- │    Logic: staging (green) → main (blue)                    │
+ │      GitHub Pages Rolling Deployment (CD)                  │
+ │ └─ deploy-page-staging.yml  →  "Success"                   │
+ │ └─ deploy-page-production.yml  →  Environment              │
  └────────────────────────────────────────────────────────────┘
             │
             ▼
  ┌──────────────────────────────────────────────┐
- │             Public Websites                  │
- │  ┌────────────────────┐  ┌────────────────┐  │
- │  │ staging.aiopsvision│  │wahba.aiopsvision│ │
- │  │     (Green)        │  │     (Blue)     │  │
- │  └────────────────────┘  └────────────────┘  │
+ │             Public Website                   │
+ │  ┌────────────────────────────────────┐      │
+ │  │           wahba.aiopsvision.com    │      │
+ │  │                                    │      │
+ │  └────────────────────────────────────┘      │
  └──────────────────────────────────────────────┘
 
 ```

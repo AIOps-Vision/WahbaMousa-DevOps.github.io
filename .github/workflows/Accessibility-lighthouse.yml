@@ -12,5 +12,5 @@ jobs:
     steps:
       - uses: treosh/lighthouse-ci-action@v10
         with:
-          urls: ${{ ENV_BASE_URL }}
+          urls: ${{ env.ENV_BASE_URL }}
           uploadArtifacts: true
