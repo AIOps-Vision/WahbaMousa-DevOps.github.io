@@ -1,14 +1,14 @@
 blank_issues_enabled: false
 
 contact_links:
-  - name: 📣 Community Support
-    url: https://github.com/aiopsvision/aiopsvision.github.io/discussions
+  - name: Community Support
+    url: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/discussions
     about: Ask questions or get help in the Discussions tab.
 
-  - name: 📘 Documentation
-    url: https://aiopsvision.com/docs
+  - name: Documentation
+    url: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io#readme
     about: Read the full documentation and usage guides.
 
-  - name: 🔐 Security Issues
-    url: https://github.com/aiopsvision/aiopsvision.github.io/security/advisories
+  - name: Security Issues
+    url: https://github.com/WahbaMousa-DevOps/WahbaMousa-DevOps.github.io/security/advisories
     about: Please report security vulnerabilities privately and responsibly.
