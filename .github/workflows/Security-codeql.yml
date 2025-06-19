@@ -15,7 +15,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        language: [javascript, ruby]
+        language: [javascript]
     steps:
       - uses: actions/checkout@v4
 
