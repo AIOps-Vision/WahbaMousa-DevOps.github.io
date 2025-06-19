@@ -2,22 +2,6 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 search: false
 ---
-/* Always show full-opacity avatar */
-.author__avatar img {
-  opacity: 1 !important;
-  filter: brightness(1.05) !important;
-  transition: none !important;
-}
-
-/* Strong sidebar text */
-.sidebar__author-name,
-.author__bio,
-.author__urls-wrapper li {
-  color: #000 !important;
-  font-weight: 600 !important;
-  opacity: 1 !important;
-}
-
 
 @charset "utf-8";
 
