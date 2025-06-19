@@ -20,7 +20,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-deploy-Blue:
+  build-deploy-production:
     runs-on: ubuntu-latest
     environment:
       name: production
