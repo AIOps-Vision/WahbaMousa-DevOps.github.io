@@ -9,16 +9,6 @@ repository: "WahbaMousa-DevOps/WahbaMousa-DevOps.github.io"
 minimal_mistakes_skin: "default"
 remote_theme: mmistakes/minimal-mistakes
 
-sass:
-  style: compressed
-
-# Optional for some themes
-defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      css: "/assets/css/custom.css"
 
 # logo: "/assets/images/logo.jpg"
 # masthead_title: "AIOps Vision"
@@ -30,10 +20,9 @@ defaults:
 author:
   name: "Wahba Mousa"
   avatar: "/assets/images/wahba.jpg"
-  avatar_size: large
   bio: "Senior DevOps Engineer — Certified AZ-400, Terraform, GitHub Advanced Security"
   location: "Cairo, Egypt"
-  email: "engineerwahba@gmail.com"
+  # email: "engineerwahba@gmail.com"
   links:
     - label: "GitHub"
       icon: "fab fa-github"
@@ -41,6 +30,12 @@ author:
     - label: "LinkedIn"
       icon: "fab fa-linkedin"
       url: "https://www.linkedin.com/in/wahbamousa/"
+#     - label: "Email"
+#       icon: "fas fa-envelope"
+#       url: "mailto:engineerwahba@gmail.com"
+#     - label: "Website"
+#       icon: "fas fa-globe"
+#       url: ${{ env.ENV_BASE_URL }}
 
 # footer:
 #   links:
@@ -55,6 +50,7 @@ author:
 #       url: "mailto:engineerwahba@gmail.com"
 
 plugins:
+  # - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
