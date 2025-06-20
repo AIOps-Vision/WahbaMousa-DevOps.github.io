@@ -8,7 +8,7 @@ author_profile: true
 ## 1- 🛠️ Real DevOps Challenges  
 Real-world problems and professional DevOps solutions. 
 
-[🔗 View on GitHub](https://github.com/AIOpsVision/Real-DevOps-Challenges)
+[🔗 View on GitHub](https://github.com/AIOps-Vision/Production-Grade-DevOps-Challenges)
 
 ## 2- 📂 Linux for DevOps Engineers
 A curated, practical Linux knowledge base designed specifically for DevOps, SRE, and infrastructure engineers. 
@@ -23,12 +23,12 @@ Cloud & DevOps Fundamentals.
 ## 4- 📘 C++ Programming Book  
 Open-source, educational, and beginner-friendly. 
 
-[🔗 View on GitHub](https://github.com/AIOpsVision/Cpp-Educational-Book)
+[🔗 View on GitHub](https://github.com/AIOps-Vision/Mastering-Basics-in-Cpp-for-Beginners)
 
 ## 5- 📱 Flutter DevOps Showcase  
 A full CI/CD pipeline with GitHub Actions + Docker. 
 
-[🔗 View on GitHub](https://github.com/AIOpsVision/Flutter-App-DevOps)
+[🔗 View on GitHub](https://github.com/AIOps-Vision/Shop-all-E-Commerce-App)
 
 ## 6- 💡 WahbaMousa-DevOps.github.io
 DevOps Portfolio Website. 
